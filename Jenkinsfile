@@ -5,6 +5,11 @@ pipeline{
             args '-p 3000:3000'
         }
     }
+
+    environment{
+        CI = 'true'
+    }
+
     stages{
         stage("Build"){
             steps{
@@ -23,7 +28,26 @@ pipeline{
                 }
             }
         }
+        stage("Test"){
+            steps{
+                echo "====++++executing Test++++===="
+                sh './jenkins/scripts/test.sh'
+            }
+            post{
+                always{
+                    echo "====++++always++++===="
+                }
+                success{
+                    echo "====++++Test executed succesfully++++===="
+                }
+                failure{
+                    echo "====++++Test execution failed++++===="
+                }
+        
+            }
+        }
     }
+    stag
     post{
         always{
             echo "========always========"
