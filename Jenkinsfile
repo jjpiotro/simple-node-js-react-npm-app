@@ -47,7 +47,6 @@ pipeline{
             }
         }
     }
-    stag
     post{
         always{
             echo "========always========"
